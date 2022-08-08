@@ -3,22 +3,21 @@
 install pipenv: pip install pipenv
 install python extension in vscode
 
-
 ###Install pipenv correctly
+
 1. Run Windows PowerShell as Administrator
 2. pip install pipenv
 3. Set path variable: set PATH=%PATH%;set PATH=%PATH%; 'C:\Users\user\AppData\Local\Programs\Python\Python310\Scripts'
 
-
-
 Add this o your Path variable
- c:\users\user\appdata\local\packages\pythonsoftwarefoundation.python.3.10_qbz5n2kfra8p0\localcache\local-packages\python310\Scripts
-
+c:\users\user\appdata\local\packages\pythonsoftwarefoundation.python.3.10_qbz5n2kfra8p0\localcache\local-packages\python310\Scripts
 
 ### create your first django project
+
 Make a directory and cd in to it
 install django inside: pipenv install django
-pipenv will create 2 files 
+pipenv will create 2 files
+
 1. Pipfile
 2. Pipfile.lock
 
@@ -26,39 +25,43 @@ The Pipfile and Pipfile.lock is like the package.json in Javascript
 
 Open the code in vscode using `code .`
 
-Next we  need to activate the virtual environment, to activate run: pipenv shell
+Next we need to activate the virtual environment, to activate run: pipenv shell
 To deactivate: Type deactivate or exit or Ctrl + D
 
-Start a new project by running 
+Start a new project by running
+
 > django-admin startproject [project name] .
 
 #### Run server
+
 python manage.py runserver
 
-#### Run server with port number by running 
+#### Run server with port number by running
+
 python manage.py runserver 9000
 
-
 #### Using Integrated Terminal in Vscode
+
 Press Ctrl + Shift + P and type python interpreter
 To get the path to your virtual env run in a new terminal in the project folder: pipenv --venv
 It will give something like this: C:\Users\user\.virtualenvs\storefront-ZU67bnU7
 
 Or vscode will give you the path automatically
 
-Next open terminal and you will see that vscode automatically activate the project 
-You see something like: 
+Next open terminal and you will see that vscode automatically activate the project
+You see something like:
 
 ❯ source C:/Users/user/.virtualenvs/storefront-ZU67bnU7/Scripts/activate
 
-
 Run the command in your Integrated Terminal: python manage.py runserver 5555
 
-
+Note: Ensure you activate the project into its virtual environment when working
 
 #### Create Django app
+
 A django project consists of several apps
 Go to the settings.py and check the INSTALLED_APPS section
+
 ```python
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -68,8 +71,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 ```
-
-
 
 Create a new app by running
 python manage.py startapp playground
@@ -88,10 +89,10 @@ INSTALLED_APPS = [
 
 ```
 
-
 ---
 
 ### Writing views
+
 Is just like the request handler
 Go to the view and write logic there
 
@@ -104,10 +105,10 @@ def say_hello(request):
     return HttpResponse("Hello world")
 ```
 
-
 ---
 
 #### Mapping views to url
+
 Next we map this view to a url
 In your app folder in my case `playground.py` add a new file called urls.py
 
@@ -136,16 +137,16 @@ urlpatterns = [
 ```
 
 Then if you visit : http://127.0.0.1:5555/playground/hello/
-You get Hello world returned 
-
+You get Hello world returned
 
 ---
 
 #### Templates in Django
+
 views in Express are called Templates in Django
 In the playground folder, add a new folder called template and inside a file called hello.html
 
-Add any html to your taste 
+Add any html to your taste
 
 Then go to your views.py and use the render function to render the template
 
@@ -158,10 +159,10 @@ def say_hello(request):
     return render(request, 'hello.html')
 ```
 
-
 ---
 
 ### PASSING DYNAMIC VALUES
+
 ```python
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -172,14 +173,15 @@ def say_hello(request):
 ```
 
 In your hello.html
+
 ```
 <h1>hello {{name}}</h1>
 ```
 
-
 ---
 
 #### Writing logic
+
 ```python
 
 {% if name%}
@@ -189,12 +191,12 @@ In your hello.html
 {% endif %}
 ```
 
-
 Debug Django using Django Debug Toolbar
 Install in your django project folder: pipenv install django-debug-toolbar
 
 Add the debug_toolbar to the installed_apps unders settings.py
-```python
+
+````python
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -217,7 +219,7 @@ urlpatterns = [
     path('playground/', include('playground.urls')),
     path('__debug__/'), include(debug_toolbar.urls)
 ]
-```
+````
 
 Next we add in the middleware
 In the seetings.py under the middleware settings add :
@@ -248,9 +250,6 @@ INTERNAL_IPS = [
 
 To see the toolbar in action, u must return a proper html in the template
 
-
-
 ---
-
 
 #### Building a Data model
